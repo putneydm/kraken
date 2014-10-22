@@ -7,74 +7,100 @@
  * Base grid styles: single column
  */
 .container {
-	max-width: $container-max;
+	max-width: $container-max-width;
 	width: $container-width;
 	margin-left: auto;
 	margin-right: auto;
 }
 
-.row {
+.grid {
 	margin-left: $grid-margins * -1;
 	margin-right: $grid-margins * -1;
 }
 
-%grid-base {
+.grid-item {
 	float: left;
 	width: 100%;
 	padding-left: $grid-margins;
 	padding-right: $grid-margins;
 }
 
-@each $grid, $width in ($grid-sizes) {
-	.grid-#{$grid} {
-		@extend %grid-base;
-	}
-}
-
-.grid-img {
-	@extend %grid-base;
-}
-
 
 /**
- * Reverses order of grid for content choreography
+ * Breakpoint-specific layout
  */
-.grid-flip {
-	float: right;
-}
+@each $breakpoint, $options in ($grid-breakpoints) {
+	@media (min-width: map-get($breakpoints, #{$breakpoint})) {
 
-
-/**
- * Add columns to grid on bigger screens
- */
-@each $breakpoint, $prefix, $offset in ($grid-breakpoints){
-	@media (min-width: $breakpoint) {
 		@each $grid, $width in ($grid-sizes) {
-			#{$prefix} .grid-#{$grid} {
-				width: $width;
+
+			@if map-get($options, no-namespace) {
+				.grid-item--#{$grid} {
+					width: $width;
+				}
+			} @else {
+				.grid-item--#{$grid}-#{$breakpoint} {
+					width: $width;
+				}
 			}
+
 		}
-		@if $offset {
-			@each $grid, $width in ($grid-sizes) {
-				#{$prefix} .offset-#{$grid} {
-					margin-left: $width;
+
+		@if map-get($options, content-choreo) {
+			@if map-get($options, no-namespace) {
+				.grid-item--flip {
+					float: right;
+				}
+
+				.grid-item--unflip {
+					float: left;
+				}
+			} @else {
+				.grid-item--flip-#{$breakpoint} {
+					float: right;
+				}
+
+				.grid-item--unflip-#{$breakpoint} {
+					float: left;
 				}
 			}
 		}
-	}
-}
 
-/**
- * Image gallery
- */
-.grid-img {
-	@media (min-width: $bp-xsmall)  { width: 50%; }
-	@media (min-width: $bp-small) { width: 33.33333333333%; }
-	@media (min-width: $bp-medium)  { width: 25%; }
+		@if map-get($options, offsets) {
+			@each $grid, $width in ($grid-sizes) {
+
+				@if map-get($options, no-namespace) {
+					.grid-item--offset-#{$grid} {
+						margin-left: $width;
+					}
+				} @else {
+					.grid-item--offset-#{$grid}-#{$breakpoint} {
+						margin-left: $width;
+					}
+				}
+
+			}
+		}
+
+		@if map-get($options, offset-clear) {
+
+			@if map-get($options, no-namespace) {
+				.grid-item--no-offset {
+					margin-left: 0;
+				}
+			} @else {
+				.grid-item--no-offset-#{$breakpoint} {
+					margin-left: 0;
+				}
+			}
+
+		}
+
+	}
 }
 
 // Add clearfix
 .container,
-.row {
-	@extend .group;
+.grid {
+	@extend .u-clear;
 }

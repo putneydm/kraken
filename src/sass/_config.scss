@@ -15,7 +15,7 @@ $color-white: #ffffff;
 $color-success: #377f31; // Green
 $color-danger: #880e14; // Red
 $color-warning: #dba909; // Yellow
-$color-code: #dd1144;
+$color-code: #dd1144; // Fuscia
 
 $color-gray-dark: #808080;
 $color-gray-light: #e5e5e5;
@@ -28,39 +28,63 @@ $font-monospace: Menlo, Monaco, "Courier New", monospace;
 
 
 // Breakpoints
-$bp-xsmall: 20em;
-$bp-small: 30em;
-$bp-medium: 40em;
-$bp-large: 60em;
-$bp-xlarge: 80em;
+$breakpoints: (
+	// $name: $size
+	xsmall: 20em,
+	small: 30em,
+	medium: 40em,
+	large: 60em,
+	xlarge: 80em,
+);
 
 
 // Sizing
-$font-base: 100%;
-$font-xlarge-screens: 125%;
+$font-size-base: 100%;
+$font-size-xlarge-screens: 125%;
 $spacing: 1.5625em;
-$container-max: 80em;
 $container-width: 88%;
+$container-max-width: 80em;
 
 
 // Grid
 $grid-margins: 1.4%;
-$grid-sizes: ( // name: width
+$grid-sizes: (
+	// $name: $width
 	fourth: 25%,
 	third: 33.33333333333%,
 	half: 50%,
-	two-thirds: 66.666666666667%,
-	three-fourths: 75%,
-	full: 100%
+	twoThirds: 66.666666666667%,
+	threeFourths: 75%,
+	full: 100%,
 );
-$grid-breakpoints: ( // breakpoint, prefix, include offsets (boolean)
-	($bp-xsmall, ".row-start-xsmall", false),
-	($bp-small, ".row-start-small", false),
-	($bp-medium, null, true)
+$grid-breakpoints: (
+	// @params
+	// $name: () - must correspond with a $breakpoint
+	// content-choreo - if true, will add classes for changing display order of content
+	// offsets - if true, will add grid offset classes
+	// offset-clear - if true, will add class to clear grid offsets
+	// no-namespace - if true, will not namespace grid output to media query size (as in .grid-item--fourth, not .grid-item--fourth-small)
+	xsmall: (),
+	small: (),
+	medium: (
+		content-choreo: true,
+		offsets: true,
+	),
+	large: (
+		content-choreo: true,
+		offsets: true,
+		offset-clear: true
+	),
+	xlarge: (
+		content-choreo: true,
+		offsets: true,
+		offset-clear: true
+	),
 );
 
 
 // Icons
-$icons: ( // name, character, color
+$icons: (
+	// $name, $character, $color
 	("logo", "\e600", null),
 );

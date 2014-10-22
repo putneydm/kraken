@@ -97,7 +97,7 @@
 
 	// If @font-face and pseudo selectors are supported, add '.font-face' class to <html> element
 	if (isFontFaceSupported && selectorSupported(':before')) {
-		document.documentElement.className += (document.documentElement.className ? ' ' : '') + 'font-face';
+		document.documentElement.className += (document.documentElement.className ? ' ' : '') + 'fontFace';
 	}
 
 })(window, document);

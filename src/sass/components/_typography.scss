@@ -5,53 +5,24 @@
 
 body {
 	font-family: $font-primary;
-	font-size: $font-base;
+	font-size: $font-size-base;
 	line-height: 1.5;
 	color: $color-black;
 	background: $color-white;
 
-	@media (min-width: $bp-medium) {
+	@media (min-width: map-get($breakpoints, medium)) {
 		line-height: 1.5625;
 	}
 
-	@if $font-base != $font-xlarge-screens {
-		@media (min-width: $bp-xlarge) {
-			font-size: $font-xlarge-screens;
+	@if $font-size-base != $font-size-xlarge-screens {
+		@media (min-width: map-get($breakpoints, xlarge)) {
+			font-size: $font-size-xlarge-screens;
 		}
 	}
 }
 
 p {
 	margin-bottom: $spacing;
-}
-
-
-/**
- * Sizes for smaller and larger text
- */
-
-.text-small {
-	font-size: calc-em(15px);
-}
-
-.text-large {
-	font-size: calc-em(19px);
-	line-height: 1.4;
-}
-
-@media (min-width: $bp-medium) {
-	.text-large {
-		font-size: calc-em(21px);
-	}
-}
-
-
-/**
- * Alternate text colors
- */
-
-.text-muted {
-	color: $color-gray-dark;
 }
 
 
@@ -128,7 +99,7 @@ dt {
  * Removes list styling.
  * For semantic reasons, should only be used on unordered lists.
  */
-.list-unstyled {
+.listUnstyled {
 	margin-left: 0;
 	list-style: none;
 }
@@ -152,7 +123,7 @@ h1,
 	font-size: calc-em(24px);
 	padding-top: .5em;
 
-	@media (min-width: $bp-medium) {
+	@media (min-width: map-get($breakpoints, medium)) {
 		font-size: calc-em(28px);
 	}
 }

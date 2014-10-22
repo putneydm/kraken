@@ -16,6 +16,12 @@ Kraken is free to use under the [MIT License](http://gomakethings.com/mit/).
 
 Kraken uses [semantic versioning](http://semver.org/).
 
+* v5.0.0 - TBD
+    * New grid with increased control over layouts at different screen widths.
+    * Updated Sass variables to accomodate new grid.
+    * New CSS naming convention inspired by BEM and adapted from [Nicolas Gallagher](http://nicolasgallagher.com/about-html-semantics-front-end-architecture/).
+    * Switched to [HTML5 boilerplate approach](https://github.com/h5bp/html5-boilerplate/blob/master/dist/css/main.css) to screen reader text.
+    * Linked directly to the HTML5 Boilerplate `.htaccess` file in add-ons instead of my fork. Deprecated Slider.
 * v4.2.0 - October 16, 2014
     * Updated Gulp task naming convention for better readability (action:object).
     * Added `gulp watch` and `gulp reload` task runners (regular and docs flavored).

@@ -24,274 +24,175 @@
 
 		<main data-sticky-wrap>
 
-			<section class="navbar-docs">
+			<section class="u-bgMutedPlus">
 				<nav class="container">
 					<strong><a href="index.html">Kraken</a></strong>
 				</nav>
 			</section>
 
 			<section class="container">
-<div class="row">
-	<div class="grid-two-thirds float-center">
 
-		<h1>The Grid</h1>
+				<div class="grid">
+					<div class="grid-item grid-item--twoThirds-medium u-floatCenter">
+<h1 id="the-grid">The Grid</h1>
+<p>Kraken uses a fluid, mobile-first grid system based on simple fractions&mdash;halves, thirds, fourths, and so on. It supports nesting, and includes offsets and special classes for content choreography.</p>
+<p>And if you&#39;re <a href="working-with-the-source-files.html">working with the source files</a>, you can easily customize the grid to be as complex&mdash;or as simple&mdash;as needed.</p>
+<p><strong>In this section:</strong></p>
+<ul>
+    <li><a data-scroll href="#the-base-grid">The Base Grid</a></li>
+    <li><a data-scroll href="#offsets">Offsets</a></li>
+    <li><a data-scroll href="#content-choreography">Content Choreography</a></li>
+    <li><a data-scroll href="#complex-grid-patterns">Complex Grid Patterns</a></li>
+</ul>
 
-		<p>Kraken uses a fluid, mobile-first grid system based on simple fractions&mdash;halves, thirds, and fourths. It includes offsets, grid nesting, and special classes for content choreography and image galleries.</p>
+<h2 id="the-base-grid">The Base Grid</h2>
 
-		<strong>In this section:</strong>
-		<ul>
-			<li><a data-scroll href="#the-base-grid">The Base Grid</a></li>
-			<li><a data-scroll href="#offsets">Offsets</a></li>
-			<li><a data-scroll href="#grids-on-small-screens">Grids on Small Screens</a></li>
-			<li><a data-scroll href="#content-choreography">Content Choreography</a></li>
-			<li><a data-scroll href="#image-gallery">Image Gallery</a></li>
-		</ul>
-
-		<h2 id="the-base-grid">The Base Grid</h2>
-
-	</div>
+<p>Create a group of grids by adding a <code>&lt;div&gt;</code> with the <code>.grid</code> class. Give individual columns within that group the <code>.grid-item</code> class. Set the width for each item with modifier classes that follow this pattern: <code>.grid-item--$width-$size</code>.</p>
+<ul>
+<li><code>$width</code> - How wide (as a fraction) the grid item should be.</li>
+<li><code>$size</code> - Which breakpoint at which the grid should kick in. Options: <code>xsmall</code> (20em), <code>small</code> (30em), <code>medium</code> (40em), <code>large</code> (60em), <code>xlarge</code> (80em).</li>
+</ul>
+<p><em>Kraken is mobile-first, so the grid is a single-column layout until activated. If you only need a simple grid, you can remove the need for the <code>-$size</code> attribute in <code>_config.scss</code> file in the <a href="working-with-the-source-files.html">source files</a>.</em></p>
+<p></div></div><!-- / Go full width --></p>
+<div class="grid">
+    <div class="grid-item grid-item--third-medium"><div class="gridHighlight">third-medium</div></div>
+    <div class="grid-item grid-item--twoThirds-medium"><div class="gridHighlight">twoThirds-medium</div></div>
 </div>
 
-		<div class="row">
-			<div class="grid-third"><div class="grid-highlight">.grid-third</div></div>
-			<div class="grid-two-thirds"><div class="grid-highlight">.grid-two-thirds</div></div>
-		</div>
-
-		<div class="row">
-			<div class="grid-fourth"><div class="grid-highlight">.grid-fourth</div></div>
-			<div class="grid-three-fourths"><div class="grid-highlight">.grid-three-fourths</div></div>
-		</div>
-
-		<div class="row">
-			<div class="grid-half"><div class="grid-highlight">.grid-half</div></div>
-			<div class="grid-half"><div class="grid-highlight">.grid-half</div></div>
-		</div>
-
-		<div class="row">
-			<div class="grid-full"><div class="grid-highlight">.grid-full</div></div>
-		</div>
-
-<pre><code class="language-markup">&lt;div class="container"&gt;
-&lt;p&gt;Kraken uses a fluid, mobile-first 6-column grid system...&lt;/p&gt;
-
-&lt;div class="row"&gt;
-	&lt;div class="grid-third"&gt;.grid-third&lt;/div&gt;
-	&lt;div class="grid-two-thirds"&gt;.grid-two-thirds&lt;/div&gt;
-&lt;/div&gt;
-
-&lt;div class="row"&gt;
-	&lt;div class="grid-fourth"&gt;.grid-fourth&lt;/div&gt;
-	&lt;div class="grid-fourth"&gt;.grid-fourth&lt;/div&gt;
-	&lt;div class="grid-half"&gt;.grid-half&lt;/div&gt;
-&lt;/div&gt;
-
-&lt;div class="row"&gt;
-	&lt;div class="grid-half"&gt;.grid-half&lt;/div&gt;
-	&lt;div class="grid-half"&gt;.grid-half&lt;/div&gt;
-&lt;/div&gt;
-
-&lt;div class="row"&gt;
-	&lt;div class="grid-full"&gt;.grid-full&lt;/div&gt;
-&lt;/div&gt;
-
-&lt;div class="row"&gt;
-	&lt;div class="grid-half"&gt;.grid-half&lt;/div&gt;
-	&lt;div class="grid-half"&gt;.grid-half&lt;/div&gt;
-&lt;/div&gt;
-
-&lt;div class="row"&gt;
-	&lt;div class="grid-full"&gt;.grid-full&lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;</code></pre>
-
-
-		<div class="row">
-			<div class="grid-two-thirds float-center">
-				<h2 id="offsets">Offsets</h2>
-
-				<p>Push grids to the right by adding an <code>.offset-*</code> class. Center grids with the <code>.float-center</code> class. Obviously, the grids and offsets cannot add up more than a whole or they'll spill outside of the container.</p>
-
-			</div>
-		</div>
-
-		<div class="row">
-			<div class="grid-three-fourths offset-fourth"><div class="grid-highlight">.grid-three-fourths .offset-fourth</div></div>
-		</div>
-
-		<div class="row">
-			<div class="grid-third"><div class="grid-highlight">.grid-third</div></div>
-			<div class="grid-third offset-third"><div class="grid-highlight">.grid-third .offset-third</div></div>
-		</div>
-
-		<div class="row">
-			<div class="grid-two-thirds float-center"><div class="grid-highlight">.grid-two-thirds .float-center</div></div>
-		</div>
-
-<pre><code class="language-markup">&lt;div class="row"&gt;
-	&lt;div class="grid-three-fourths offset-fourth"&gt;.grid-three-fourths .offset-fourth&lt;/div&gt;
-&lt;/div&gt;
-
-&lt;div class="row"&gt;
-	&lt;div class="grid-third"&gt;.grid-third&lt;/div&gt;
-	&lt;div class="grid-third offset-third"&gt;.grid-third .offset-third&lt;/div&gt;
-&lt;/div&gt;
-
-&lt;div class="row"&gt;
-	&lt;div class="grid-two-thirds float-center"&gt;.grid-two-thirds .float-center&lt;/div&gt;
-&lt;/div&gt;</code></pre>
-
-
-		<div class="row">
-			<div class="grid-two-thirds float-center">
-				<h2 class="text-center" id="grids-on-small-screens">Grids on Small Screens</h2>
-
-				<p>The grid activates on medium-sized screens by default. You can toggle the grid on smaller screens by adding a simple class&mdash;<code>.row-start-xsmall</code> or <code>.row-start-small</code>&mdash;to the desired <code>.row</code> element.</p>
-			</div>
-		</div>
-
-		<p class="space-bottom-small"><strong>Extra Small Screens</strong></p>
-		<div class="row row-start-xsmall">
-			<div class="grid-fourth"><div class="grid-highlight">.grid-fourth</div></div>
-			<div class="grid-fourth"><div class="grid-highlight">.grid-fourth</div></div>
-			<div class="grid-fourth"><div class="grid-highlight">.grid-fourth</div></div>
-			<div class="grid-fourth"><div class="grid-highlight">.grid-fourth</div></div>
-		</div>
-
-		<p class="space-bottom-small"><strong>Small Screens</strong></p>
-		<div class="row row-start-small">
-			<div class="grid-fourth"><div class="grid-highlight">.grid-fourth</div></div>
-			<div class="grid-fourth"><div class="grid-highlight">.grid-fourth</div></div>
-			<div class="grid-fourth"><div class="grid-highlight">.grid-fourth</div></div>
-			<div class="grid-fourth"><div class="grid-highlight">.grid-fourth</div></div>
-		</div>
-
-<pre><code class="language-markup">Extra Small Screens
-&lt;div class="row row-start-xsmall"&gt;
-	&lt;div class="grid-fourth"&gt;.grid-fourth&lt;/div&gt;
-	&lt;div class="grid-fourth"&gt;.grid-fourth&lt;/div&gt;
-	&lt;div class="grid-fourth"&gt;.grid-fourth&lt;/div&gt;
-	&lt;div class="grid-fourth"&gt;.grid-fourth&lt;/div&gt;
-&lt;/div&gt;
-
-Small Screens
-&lt;div class="row row-start-small"&gt;
-	&lt;div class="grid-fourth"&gt;.grid-fourth&lt;/div&gt;
-	&lt;div class="grid-fourth"&gt;.grid-fourth&lt;/div&gt;
-	&lt;div class="grid-fourth"&gt;.grid-fourth&lt;/div&gt;
-	&lt;div class="grid-fourth"&gt;.grid-fourth&lt;/div&gt;
-&lt;/div&gt;</code></pre>
-
-
-		<div class="row">
-			<div class="grid-two-thirds float-center">
-				<h2 class="text-center" id="content-choreography">Content Choreography</h2>
-
-				<p>Flip the order of a grid on bigger screens by adding the <code>.grid-flip</code> class.</p>
-			</div>
-		</div>
-
-		<div class="row">
-			<div class="grid-third grid-flip"><div class="grid-highlight">First in HTML</div></div>
-			<div class="grid-two-thirds"><div class="grid-highlight">Second in HTML</div></div>
-		</div>
-
-		<pre><code class="language-markup">&lt;div class="row"&gt;
-	&lt;div class="grid-third grid-flip"&gt;First in HTML&lt;/div&gt;
-	&lt;div class="grid-two-thirds"&gt;Second in HTML&lt;/div&gt;
-&lt;/div&gt;</code></pre>
-
-
-		<div class="row">
-			<div class="grid-two-thirds float-center">
-				<h2 class="text-center" id="image-gallery">Image Gallery</h2>
-
-				<p>Display images in a responsive gallery by using the <code>.grid-img</code> class. You can add any number of image grids to a <code>.row</code>. They'll automatically adjust themselves.</p>
-			</div>
-		</div>
-
-		<div class="row">
-			<div class="grid-img"><p><img src="assets/img/emu.jpg" title="Picture an emu"></p></div>
-			<div class="grid-img"><p><img src="assets/img/emu.jpg" title="Picture an emu"></p></div>
-			<div class="grid-img"><p><img src="assets/img/emu.jpg" title="Picture an emu"></p></div>
-			<div class="grid-img"><p><img src="assets/img/emu.jpg" title="Picture an emu"></p></div>
-			<div class="grid-img"><p><img src="assets/img/emu.jpg" title="Picture an emu"></p></div>
-			<div class="grid-img"><p><img src="assets/img/emu.jpg" title="Picture an emu"></p></div>
-			<div class="grid-img"><p><img src="assets/img/emu.jpg" title="Picture an emu"></p></div>
-			<div class="grid-img"><p><img src="assets/img/emu.jpg" title="Picture an emu"></p></div>
-			<div class="grid-img"><p><img src="assets/img/emu.jpg" title="Picture an emu"></p></div>
-			<div class="grid-img"><p><img src="assets/img/emu.jpg" title="Picture an emu"></p></div>
-			<div class="grid-img"><p><img src="assets/img/emu.jpg" title="Picture an emu"></p></div>
-			<div class="grid-img"><p><img src="assets/img/emu.jpg" title="Picture an emu"></p></div>
-		</div>
-
-<pre><code class="language-markup">&lt;div class="row"&gt;
-	&lt;div class="grid-img"&gt;&lt;p&gt;&lt;img src="img/emu.jpg"&gt;&lt;/p&gt;&lt;/div&gt;
-	&lt;div class="grid-img"&gt;&lt;p&gt;&lt;img src="img/emu.jpg"&gt;&lt;/p&gt;&lt;/div&gt;
-	&lt;div class="grid-img"&gt;&lt;p&gt;&lt;img src="img/emu.jpg"&gt;&lt;/p&gt;&lt;/div&gt;
-	&lt;div class="grid-img"&gt;&lt;p&gt;&lt;img src="img/emu.jpg"&gt;&lt;/p&gt;&lt;/div&gt;
-	&lt;div class="grid-img"&gt;&lt;p&gt;&lt;img src="img/emu.jpg"&gt;&lt;/p&gt;&lt;/div&gt;
-	&lt;div class="grid-img"&gt;&lt;p&gt;&lt;img src="img/emu.jpg"&gt;&lt;/p&gt;&lt;/div&gt;
-	&lt;div class="grid-img"&gt;&lt;p&gt;&lt;img src="img/emu.jpg"&gt;&lt;/p&gt;&lt;/div&gt;
-	&lt;div class="grid-img"&gt;&lt;p&gt;&lt;img src="img/emu.jpg"&gt;&lt;/p&gt;&lt;/div&gt;
-	&lt;div class="grid-img"&gt;&lt;p&gt;&lt;img src="img/emu.jpg"&gt;&lt;/p&gt;&lt;/div&gt;
-	&lt;div class="grid-img"&gt;&lt;p&gt;&lt;img src="img/emu.jpg"&gt;&lt;/p&gt;&lt;/div&gt;
-	&lt;div class="grid-img"&gt;&lt;p&gt;&lt;img src="img/emu.jpg"&gt;&lt;/p&gt;&lt;/div&gt;
-	&lt;div class="grid-img"&gt;&lt;p&gt;&lt;img src="img/emu.jpg"&gt;&lt;/p&gt;&lt;/div&gt;
-&lt;/div&gt;</code></pre>
-
-	</div>
+<div class="grid">
+    <div class="grid-item grid-item--fourth-large"><div class="gridHighlight">fourth-large</div></div>
+    <div class="grid-item grid-item--threeFourths-large"><div class="gridHighlight">threeFourths-large</div></div>
 </div>
 
-<hr>
+<div class="grid">
+    <div class="grid-item grid-item--half-xsmall"><div class="gridHighlight">third-small</div></div>
+    <div class="grid-item grid-item--half-xsmall"><div class="gridHighlight">twoThirds-small</div></div>
+</div>
 
-<nav class="nav-docs space-bottom">
-	<h1 class="text-center no-space-bottom" id="getting-started">Getting Started</h1>
-	<p class="text-muted text-center"><span class="text-tall">Learn how to use Kraken</span></p>
-	<div class="row">
-		<div class="grid-third">
-			<strong>Setup</strong>
-			<ul>
-				<li><a href="download.html">Download</a></li>
-				<li><a href="the-kraken-approach.html">The Kraken Approach</a></li>
-				<li><a href="file-structure.html">File Structure</a></li>
-				<li><a href="working-with-the-source-files.html">Working with the Source Files</a></li>
-				<li><a href="working-with-css.html">Working with CSS</a></li>
-				<li><a href="html-template.html">HTML Template</a></li>
-			</ul>
-		</div>
-		<div class="grid-third">
-			<strong>Components</strong>
-			<ul>
-				<li><a href="grid.html">The Grid</a></li>
-				<li><a href="typography.html">Typography</a></li>
-				<li><a href="buttons.html">Buttons</a></li>
-				<li><a href="forms.html">Forms</a></li>
-				<li><a href="icons.html">SVG &amp; Icon Fonts</a></li>
-				<li><a href="overrides.html">Alignment, Spacing &amp; Visibility</a></li>
-			</ul>
-		</div>
-		<div class="grid-third">
-			<strong>Miscellaneous</strong>
-			<ul>
-				<li><a href="generating-documentation.html">Generating Documentation</a></li>
-				<li><a href="add-ons.html">Add-Ons</a></li>
-				<li><a href="browsers.html">Browser Compatibility</a></li>
-				<li><a href="support.html">Support</a></li>
-			</ul>
-		</div>
-	</div>
-	<h3 class="space-top space-bottom-small text-center">Older Docs</h3>
-	<p class="text-center"><a href="assets/archive/v2/index.html">Kraken 2</a> | <a href="assets/archive/v3/index.html">Kraken 3</a></p>
-</nav>
+
+<pre><code class="lang-markup">&lt;div class=&quot;grid&quot;&gt;
+    &lt;div class=&quot;grid-item grid-item--third-medium&quot;&gt;third-medium&lt;/div&gt;
+    &lt;div class=&quot;grid-item grid-item--twoThirds-medium&quot;&gt;twoThirds-medium&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class=&quot;grid&quot;&gt;
+    &lt;div class=&quot;grid-item grid-item--fourth-large&quot;&gt;fourth-large&lt;/div&gt;
+    &lt;div class=&quot;grid-item grid-item--threeFourths-large&quot;&gt;threeFourths-large&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class=&quot;grid&quot;&gt;
+    &lt;div class=&quot;grid-item grid-item--half-xsmall&quot;&gt;third-small&lt;/div&gt;
+    &lt;div class=&quot;grid-item grid-item--half-xsmall&quot;&gt;twoThirds-small&lt;/div&gt;
+&lt;/div&gt;
+</code></pre>
+<div class="grid">
+    <div class="grid-item grid-item--twoThirds-medium u-floatCenter">
+        <h2 id="offsets">Offsets</h2>
+
+        <p>Push grids to the right by adding a <code>.grid-item--offset-$width-$size</code> class. Center grids with the <code>.u-floatCenter</code> utility class.</p>
+
+    </div>
+</div>
+
+<div class="grid">
+    <div class="grid-item grid-item--threeFourths-medium grid-item--offset-fourth-medium"><div class="gridHighlight">threeFourths-medium offset-fourth-medium</div></div>
+</div>
+
+<div class="grid">
+    <div class="grid-item grid-item--third-medium"><div class="gridHighlight">third-medium</div></div>
+    <div class="grid-item grid-item--third-medium grid-item--offset-third-medium"><div class="gridHighlight">third-medium offset-third-medium</div></div>
+</div>
+
+<div class="grid">
+    <div class="grid-item grid-item--twoThirds-medium u-floatCenter"><div class="gridHighlight">twoThirds-medium u-floatCenter</div></div>
+</div>
+
+<pre><code class="lang-markup">&lt;div class=&quot;grid&quot;&gt;
+    &lt;div class=&quot;grid-item grid-item--threeFourths-medium grid-item--offset-fourth-medium&quot;&gt;threeFourths-medium offset-fourth-medium&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class=&quot;grid&quot;&gt;
+    &lt;div class=&quot;grid-item grid-item--third-medium&quot;&gt;third-medium&lt;/div&gt;
+    &lt;div class=&quot;grid-item grid-item--third-medium grid-item--offset-third-medium&quot;&gt;third-medium offset-third-medium&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class=&quot;grid&quot;&gt;
+    &lt;div class=&quot;grid-item grid-item--twoThirds-medium u-floatCenter&quot;&gt;twoThirds-medium u-floatCenter&lt;/div&gt;
+&lt;/div&gt;
+</code></pre>
+<div class="grid">
+    <div class="grid-item grid-item--twoThirds-medium float-center">
+        <h2 class="text-center" id="content-choreography">Content Choreography</h2>
+
+        <p>Flip the order of a grid on bigger screens by adding the <code>.grid-flip</code> class.</p>
+    </div>
+</div>
+
+<div class="grid">
+    <div class="grid-item grid-item--third-medium grid-item--flip-medium"><div class="gridHighlight">First in HTML</div></div>
+    <div class="grid-item grid-item--twoThirds-medium"><div class="gridHighlight">Second in HTML</div></div>
+</div>
+
+<pre><code class="lang-markup">&lt;div class=&quot;grid&quot;&gt;
+    &lt;div class=&quot;grid-item grid-item--third-medium grid-item--flip-medium&quot;&gt;First in HTML&lt;/div&gt;
+    &lt;div class=&quot;grid-item grid-item--twoThirds-medium&quot;&gt;Second in HTML&lt;/div&gt;
+&lt;/div&gt;
+</code></pre>
+<p><div><div><!-- Reopen closed containers --></p>
+					</div>
+				</div>
+
+				<hr>
+
+				<nav class="navDocs u-marginBottom">
+					<h1 class="u-textCenter u-noMarginBottom" id="getting-started">Getting Started</h1>
+					<p class="u-textMuted u-textCenter"><span class="u-textLarge">Learn how to use Kraken</span></p>
+					<div class="grid">
+						<div class="grid-item grid-item--third-medium">
+							<strong>Setup</strong>
+							<ul>
+								<li><a href="download.html">Download</a></li>
+								<li><a href="the-kraken-approach.html">The Kraken Approach</a></li>
+								<li><a href="file-structure.html">File Structure</a></li>
+								<li><a href="working-with-the-source-files.html">Working with the Source Files</a></li>
+								<li><a href="working-with-css.html">Working with CSS</a></li>
+								<li><a href="html-template.html">HTML Template</a></li>
+							</ul>
+						</div>
+						<div class="grid-item grid-item--third-medium">
+							<strong>Components</strong>
+							<ul>
+								<li><a href="grid.html">The Grid</a></li>
+								<li><a href="typography.html">Typography</a></li>
+								<li><a href="buttons.html">Buttons</a></li>
+								<li><a href="forms.html">Forms</a></li>
+								<li><a href="icons.html">SVG &amp; Icon Fonts</a></li>
+								<li><a href="overrides.html">Alignment, Spacing &amp; Visibility</a></li>
+							</ul>
+						</div>
+						<div class="grid-item grid-item--third-medium">
+							<strong>Miscellaneous</strong>
+							<ul>
+								<li><a href="generating-documentation.html">Generating Documentation</a></li>
+								<li><a href="add-ons.html">Add-Ons</a></li>
+								<li><a href="browsers.html">Browser Compatibility</a></li>
+								<li><a href="support.html">Support</a></li>
+							</ul>
+						</div>
+					</div>
+					<h3 class="u-paddingTop u-marginBottomSmall u-textCenter">Older Docs</h3>
+					<p class="u-textCenter"><a href="assets/archive/v2/index.html">Kraken 2</a> | <a href="assets/archive/v3/index.html">Kraken 3</a> | <a href="assets/archive/v4/index.html">Kraken 4</a></p>
+				</nav>
+
+
 			</section>
 		</main>
 
-		<footer data-sticky-footer class="jumbotron">
+		<footer data-sticky-footer class="u-bgMuted u-paddingTop u-paddingBottom">
 			<article class="container">
 
-				<p class="text-small text-muted">Built by <a href="http://gomakethings.com">Chris Ferdinandi</a>. Free to use under the <a href="http://gomakethings.com/mit/">MIT License</a>.</p>
-
-				<p class="text-small text-muted">Kraken logo by <a href="http://thenounproject.com/term/squid/30310/">Joe Shelton from the Noun Project</a>. Additional icons from <a href="http://thenounproject.com/term/rocket/8923/">Cris Dobbins</a>, <a href="http://thenounproject.com/term/atom/36112/">Mister Pixel</a>, and <a href="http://thenounproject.com/term/blocks/27779/">Lukasz&nbsp;M.&nbsp;Pogoda</a>.</p>
+				<p class="u-textSmall u-textMuted u-marginBottomSmall">Built by <a href="http://gomakethings.com">Chris Ferdinandi</a>. Free to use under the <a href="http://gomakethings.com/mit/">MIT License</a>.</p>
+				<p class="u-textSmall u-textMuted">Kraken logo by <a href="http://thenounproject.com/term/squid/30310/">Joe Shelton from the Noun Project</a>. Additional icons from <a href="http://thenounproject.com/term/rocket/8923/">Cris Dobbins</a>, <a href="http://thenounproject.com/term/atom/36112/">Mister Pixel</a>, and <a href="http://thenounproject.com/term/blocks/27779/">Lukasz&nbsp;M.&nbsp;Pogoda</a>.</p>
 
 			</article>
 		</footer>
@@ -305,9 +206,10 @@ Small Screens
 			stickyFooter.init();
 			;(function (window, document, undefined) {
 				'use strict';
-				var activeNav = document.querySelector('.nav-docs a[href^="' + location.pathname.split("kraken/")[1] + '"]');
+				// var activeNav = document.querySelector('.navDocs a[href^="' + location.pathname.split("kraken/")[1] + '"]');
+				var activeNav = document.querySelector('.navDocs a[href^="' + location.pathname.split("/")[1] + '"]');
 				if ( !!activeNav & !!document.querySelector ) {
-					activeNav.className += ' nav-docs-active';
+					activeNav.className += ' is-active';
 				}
 			})(window, document);
 		</script>

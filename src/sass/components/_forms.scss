@@ -29,13 +29,13 @@ select {
 	border: calc-em(1px) solid lighten( $color-gray-dark, 22% );
 	border-radius: calc-em(1px);
 
-	@media (min-width: $bp-medium) {
+	@media (min-width: map-get($breakpoints, medium)) {
 		line-height: 1.5625;
 	}
 }
 
 form button,
-form .button {
+form .btn {
 	margin-bottom: calc-em(19px);
 }
 
@@ -74,7 +74,7 @@ select:focus {
 /**
  * Inline inputs
  */
-.input-inline {
+.input--inline {
 	display: inline-block;
 	width: auto;
 	vertical-align: middle;
@@ -84,7 +84,7 @@ select:focus {
 /**
  * Condensed inputs
  */
-.input-condensed {
+.input--condensed {
 	padding: calc-em(1px) calc-em(5px);
 	font-size: calc-em(15px);
 }

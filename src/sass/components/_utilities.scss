@@ -1,0 +1,198 @@
+/**
+ * @section Alignment, Spacing, & Visibility
+ * Override defaults.
+ */
+
+
+/**
+ * Text sizes
+ */
+
+.u-textSmall {
+	font-size: calc-em(15px);
+}
+
+.u-textLarge {
+	font-size: calc-em(19px);
+	line-height: 1.4;
+}
+
+@media (min-width: map-get($breakpoints, medium)) {
+	.u-textLarge {
+		font-size: calc-em(21px);
+	}
+}
+
+
+/**
+ * Text colors
+ */
+
+.u-textMuted {
+	color: $color-gray-dark;
+}
+
+
+/**
+ * Text alignment
+ */
+
+.u-textCenter {
+	text-align: center;
+}
+
+.u-textRight {
+	text-align: right;
+}
+
+.u-textLeft {
+	text-align: left;
+}
+
+
+/**
+ * Background colors
+ */
+
+.u-bgMuted {
+	background-color: lighten( $color-gray-light, 7% );
+}
+
+
+/**
+ * Floats
+ */
+
+.u-floatLeft {
+	float: left;
+}
+
+.u-floatCenter {
+	float: none;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.u-floatRight {
+	float: right;
+}
+
+
+/**
+ * Margins
+ */
+
+.u-noMargin {
+	margin: 0;
+}
+
+.u-noMarginTop {
+	margin-top: 0;
+}
+
+.u-noMarginBottom {
+	margin-bottom: 0;
+}
+
+.u-marginBottom {
+	margin-bottom: $spacing;
+}
+
+.u-marginBottomSmall {
+	margin-bottom: calc-em(8px);
+}
+
+.u-marginBottomLarge {
+	margin-bottom: calc-em(32px);
+}
+
+.u-marginTop {
+	margin-top: $spacing;
+}
+
+
+/**
+ * Padding
+ */
+
+.u-noPadding {
+	padding: 0;
+}
+
+.u-noPaddingTop {
+	padding-top: 0;
+}
+
+.u-noPaddingBottom {
+	padding-bottom: 0;
+}
+
+.u-paddingBottom {
+	padding-bottom: $spacing;
+}
+
+.u-paddingBottomSmall {
+	padding-bottom: calc-em(8px);
+}
+
+.u-paddingBottomLarge {
+	padding-bottom: calc-em(32px);
+}
+
+.u-paddingTop {
+	padding-top: $spacing;
+}
+
+.u-paddingTopSmall {
+	padding-top: calc-em(8px);
+}
+
+.u-paddingTopLarge {
+	padding-top: calc-em(32px);
+}
+
+
+/**
+ * Visibility
+ */
+
+/**
+ * Hide visually but accessible to screen readers
+ * http://snook.ca/archives/html_and_css/hiding-content-for-accessibility
+ */
+.u-screenreader {
+	border: 0;
+	clip: rect(0 0 0 0);
+	height: 1px;
+	margin: -1px;
+	overflow: hidden;
+	padding: 0;
+	position: absolute;
+	width: 1px;
+}
+
+/**
+ * @workaround
+ * @affected IE 8/9/10
+ * Hide visually and from screen readers
+ * http://juicystudio.com/article/screen-readers-display-none.php
+ */
+[hidden] {
+	display: none;
+	visibility: hidden;
+}
+
+
+/**
+ * Clearfix
+ */
+
+.u-clear:before,
+.u-clear:after {
+	display: table;
+	content: "";
+}
+
+.u-clear:after {
+	clear: both;
+}

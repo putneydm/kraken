@@ -31,7 +31,7 @@
  */
 
 @each $icon, $character, $color in ($icons) {
-	.font-face .icon-#{$icon}:before { content: $character };
+	.fontFace .icon--#{$icon}:before { content: $character };
 }
 
 
@@ -41,7 +41,7 @@
 
 @each $icon, $character, $color in ($icons) {
 	@if $color {
-		.icon-#{$icon} { color: $color };
+		.icon--#{$icon} { color: $color };
 	}
 }
 
@@ -67,7 +67,7 @@ a:hover .icon-link-text {
  * Override color-styled icons
  */
 
-.icon-inherit-color {
+.icon--inherit-color {
 	color: inherit;
 }
 
@@ -77,7 +77,7 @@ a:hover .icon-link-text {
  * Also provides assistance for screen readers.
  */
 
-.font-face .icon-fallback-text {
+.fontFace .icon-fallback-text {
 	position: absolute;
 	top: -9999em;
 	left: -9999em;
