@@ -16,6 +16,8 @@ var footer = require('gulp-footer');
 var watch = require('gulp-watch');
 var livereload = require('gulp-livereload');
 var package = require('./package.json');
+var inject = require('gulp-inject')
+var filter = require('gulp-filter');
 
 // Scripts and tests
 var jshint = require('gulp-jshint');
@@ -32,10 +34,21 @@ var minify = require('gulp-minify-css');
 // SVGs
 var svgmin = require('gulp-svgmin');
 var svgstore = require('gulp-svgstore');
+var svg2png = require('gulp-svg2png');
+var svgSprite = require("gulp-svg-sprites")
 
 // Docs
 var markdown = require('gulp-markdown');
 var fileinclude = require('gulp-file-include');
+
+//Markdown
+var markdown = require('gulp-markdown');
+
+//images
+var imagemin = require('gulp-imagemin');
+var jpegtran = require('gulp-imagemin/node_modules/imagemin/node_modules/imagemin-jpegtran/');
+var gm = require('gulp-gm');
+var rename = require('gulp-rename');
 
 
 /**
@@ -44,18 +57,18 @@ var fileinclude = require('gulp-file-include');
 
 var paths = {
 	input: 'src/**/*',
-	output: 'dist/',
+	output: 'site/',
 	scripts: {
 		input: 'src/js/*',
-		output: 'dist/js/'
+		output: 'site/js/'
 	},
 	styles: {
 		input: 'src/sass/**/*.{scss,sass}',
-		output: 'dist/css/'
+		output: 'site/css/'
 	},
 	svgs: {
 		input: 'src/svg/*',
-		output: 'dist/svg/'
+		output: 'site/svg/'
 	},
 	static: 'src/static/**',
 	test: {
@@ -70,45 +83,40 @@ var paths = {
 		output: 'docs/',
 		templates: 'src/docs/_templates/',
 		assets: 'src/docs/assets/**'
+	},
+	
+	html: {
+		input: 'src/html/*.{html,md,markdown}',
+		output: 'site/',
+		//templates: 'src/html/_templates/',
+		assets: 'src/html/assets/**'
+	},
+	
+	markdown: {
+		input: 'src/html/modules/markdown/*.{md,markdown}',
+		output: 'src/html/modules/markdown_compiled',
+	},
+	
+	images: {
+		input: 'src/siteart_input/*.png',
+		output: 'site/siteart/'
 	}
+	
 };
 
 
-/**
- * Template for banner to add to file headers
- */
-
-var banner = {
-	full :
-		'/**\n' +
-		' * <%= package.name %> v<%= package.version %>\n' +
-		' * <%= package.description %>, by <%= package.author.name %>.\n' +
-		' * <%= package.repository.url %>\n' +
-		' * \n' +
-		' * Free to use under the MIT License.\n' +
-		' * http://gomakethings.com/mit/\n' +
-		' */\n\n',
-	min :
-		'/**' +
-		' <%= package.name %> v<%= package.version %>, by Chris Ferdinandi' +
-		' | <%= package.repository.url %>' +
-		' | Licensed under MIT: http://gomakethings.com/mit/' +
-		' */\n'
-};
 
 
 /**
- * Gulp Taks
+ * Gulp Tasks
  */
 
 // Lint, minify, and concatenate scripts
 gulp.task('build:scripts', ['clean:dist'], function() {
 	var jsTasks = lazypipe()
-		.pipe(header, banner.full, { package : package })
 		.pipe(gulp.dest, paths.scripts.output)
 		.pipe(rename, { suffix: '.min' })
 		.pipe(uglify)
-		.pipe(header, banner.min, { package : package })
 		.pipe(gulp.dest, paths.scripts.output);
 
 	return gulp.src(paths.scripts.input)
@@ -125,17 +133,17 @@ gulp.task('build:scripts', ['clean:dist'], function() {
 });
 
 // Process, lint, and minify Sass files
-gulp.task('build:styles', ['clean:dist'], function() {
+gulp.task('build:styles'/*, ['clean:dist']*/, function() {
 	return gulp.src(paths.styles.input)
 		.pipe(plumber())
 		.pipe(sass({style: 'expanded', noCache: true, 'sourcemap=none': true}))
 		.pipe(flatten())
 		.pipe(prefix('last 2 version', '> 1%'))
-		.pipe(header(banner.full, { package : package }))
-		.pipe(gulp.dest(paths.styles.output))
+	//	.pipe(header(banner.full, { package : package }))
+	//	.pipe(gulp.dest(paths.styles.output))
 		.pipe(rename({ suffix: '.min' }))
 		.pipe(minify())
-		.pipe(header(banner.min, { package : package }))
+	//	.pipe(header(banner.min, { package : package }))
 		.pipe(gulp.dest(paths.styles.output));
 });
 
@@ -162,8 +170,23 @@ gulp.task('build:svgs', ['clean:dist'], function () {
 			prefix: 'icon-',
 			inlineSvg: true
 		}))
-		.pipe(gulp.dest(paths.svgs.output));
+		.pipe(gulp.dest(paths.svgs.output))
 });
+
+
+var svgSprite = require("gulp-svg-sprites");
+var filter    = require('gulp-filter');
+var svg2png   = require('gulp-svg2png');
+
+gulp.task('png_sprites', function () {
+    return gulp.src(paths.svgs.input)
+		.pipe(svgSprite())      
+   		.pipe(gulp.dest(paths.svgs.output)) // Write the sprite-sheet + CSS + Preview
+        .pipe(filter("**/*.svg"))  // Filter out everything except the SVG file
+        .pipe(svg2png())           // Create a PNG
+        .pipe(gulp.dest(paths.svgs.output));
+});
+
 
 // Copy static files into output folder
 gulp.task('copy:static', ['clean:dist'], function() {
@@ -197,42 +220,27 @@ gulp.task('test:scripts', function() {
 		.on('error', function(err) { throw err; });
 });
 
-// Generate documentation
-gulp.task('build:docs', ['compile', 'clean:docs'], function() {
-	return gulp.src(paths.docs.input)
+
+
+
+gulp.task('build:markdown', function () {
+    return gulp.src(paths.markdown.input)
+        .pipe(markdown())
+        .pipe(gulp.dest(paths.markdown.output));
+});
+
+
+// Generate pages
+gulp.task('build:pages', ['compile'], function() {
+	return gulp.src(paths.html.input)
 		.pipe(plumber())
 		.pipe(fileinclude({
 			prefix: '@@',
 			basepath: '@file'
 		}))
-		.pipe(tap(function (file, t) {
-			if ( /\.md|\.markdown/.test(file.path) ) {
-				return t.through(markdown);
-			}
-		}))
-		.pipe(header(fs.readFileSync(paths.docs.templates + '/_header.html', 'utf8')))
-		.pipe(footer(fs.readFileSync(paths.docs.templates + '/_footer.html', 'utf8')))
-		.pipe(gulp.dest(paths.docs.output));
+		.pipe(gulp.dest(paths.html.output));
 });
 
-// Copy distribution files to docs
-gulp.task('copy:dist', ['compile', 'clean:docs'], function() {
-	return gulp.src(paths.output + '/**')
-		.pipe(plumber())
-		.pipe(gulp.dest(paths.docs.output + '/dist'));
-});
-
-// Copy documentation assets to docs
-gulp.task('copy:assets', ['clean:docs'], function() {
-	return gulp.src(paths.docs.assets)
-		.pipe(plumber())
-		.pipe(gulp.dest(paths.docs.output + '/assets'));
-});
-
-// Remove prexisting content from docs folder
-gulp.task('clean:docs', function () {
-	return del.sync(paths.docs.output);
-});
 
 // Spin up livereload server and listen for file changes
 gulp.task('listen', function () {
@@ -263,24 +271,21 @@ gulp.task('compile', [
 	'build:styles'
 ]);
 
-// Generate documentation
-gulp.task('docs', [
-	'clean:docs',
-	'build:docs',
-	'copy:dist',
-	'copy:assets'
+
+
+// Generate pages
+gulp.task('pages', [
+	'build:markdown',
+	'build:pages'
 ]);
 
-// Generate documentation
-gulp.task('tests', [
-	'test:scripts'
-]);
 
 // Compile files, generate docs, and run unit tests (default)
 gulp.task('default', [
 	'compile',
-	'docs',
-	'tests'
+	//'docs',
+	//'tests',
+	'pages'
 ]);
 
 // Compile files, generate docs, and run unit tests when something changes
@@ -288,3 +293,35 @@ gulp.task('watch', [
     'listen',
     'default'
 ]);
+
+
+
+gulp.task('images', function () {
+
+  // x-small images
+  gulp.src(paths.images.input)
+    .pipe(gm(function (gmfile) {
+      return gmfile.setFormat('jpg'),
+      		 gmfile.resample(72, 72),
+             gmfile.resize(700, null),
+             gmfile.crop(700, 412, 0, 0),
+             gmfile.quality(35);
+             // gulp // Again, I don't think this belongs here
+    }, {
+      imageMagick: true
+    }))
+
+    // Crunches images
+    .pipe(imagemin({
+      progressive: true,
+      use: [jpegtran()]
+    }))
+
+    // Renames images
+ 
+    .pipe(rename({
+    prefix: 'xsmall_'
+    }))
+
+    .pipe(gulp.dest(paths.images.output)); // ./dist/main/text/ciao/bonjour-aloha-hola.md
+});
