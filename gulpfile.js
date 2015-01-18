@@ -31,6 +31,7 @@ var karma = require('gulp-karma');
 var sass = require('gulp-ruby-sass');
 var prefix = require('gulp-autoprefixer');
 var minify = require('gulp-minify-css');
+var csslint = require('gulp-csslint');
 
 // SVGs
 var svgmin = require('gulp-svgmin');
