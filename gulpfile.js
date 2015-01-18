@@ -64,7 +64,8 @@ var paths = {
 	output: 'site/',
 	scripts: {
 		input: 'src/js/*',
-		output: 'site/js/'
+		output: 'site/js/',
+		output_concat: 'site/js/min/'
 	},
 	styles: {
 		input: 'src/sass/**/*.{scss,sass}',
