@@ -138,18 +138,21 @@ gulp.task('build:scripts', ['clean:dist'], function() {
 		.pipe(jsTasks());
 });
 
+*/
+
 // Process, lint, and minify Sass files
 gulp.task('build:styles'/*, ['clean:dist']*/, function() {
 	return gulp.src(paths.styles.input)
-		.pipe(plumber())
+ 		.pipe(plumber(function () {
+            beep();
+        }))
 		.pipe(sass({style: 'expanded', noCache: true, 'sourcemap=none': true}))
-		.pipe(flatten())
+		.pipe(flatten ())
+		.pipe(csslint())
+    	.pipe(csslint.reporter())
 		.pipe(prefix('last 2 version', '> 1%'))
-	//	.pipe(header(banner.full, { package : package }))
-	//	.pipe(gulp.dest(paths.styles.output))
 		.pipe(rename({ suffix: '.min' }))
 		.pipe(minify())
-	//	.pipe(header(banner.min, { package : package }))
 		.pipe(gulp.dest(paths.styles.output));
 });
 
@@ -180,12 +183,12 @@ gulp.task('build:svgs', ['clean:dist'], function () {
 });
 
 
-var svgSprite = require("gulp-svg-sprites");
-var filter    = require('gulp-filter');
-var svg2png   = require('gulp-svg2png');
+//var svgSprite = require("gulp-svg-sprites");
+// var filter    = require('gulp-filter');
 
 gulp.task('png_sprites', function () {
     return gulp.src(paths.svgs.input)
+   		.pipe(svgmin())
 		.pipe(svgSprite())      
    		.pipe(gulp.dest(paths.svgs.output)) // Write the sprite-sheet + CSS + Preview
         .pipe(filter("**/*.svg"))  // Filter out everything except the SVG file
@@ -201,13 +204,6 @@ gulp.task('copy:static', ['clean:dist'], function() {
 		.pipe(gulp.dest(paths.output));
 });
 
-// Lint scripts
-gulp.task('lint:scripts', function () {
-	return gulp.src(paths.scripts.input)
-		.pipe(plumber())
-		.pipe(jshint())
-		.pipe(jshint.reporter('jshint-stylish'));
-});
 
 // Remove prexisting content from output and test folders
 gulp.task('clean:dist', function () {
@@ -226,6 +222,35 @@ gulp.task('test:scripts', function() {
 		.on('error', function(err) { throw err; });
 });
 
+
+// Lint scripts
+/*
+gulp.task('lint:scripts', function () {
+	return gulp.src(paths.scripts.input)
+		.pipe(plumber())
+		.pipe(jshint())
+		.pipe(jshint.reporter('jshint-stylish'))
+		.pipe(jshint.reporter('fail'))
+});
+
+*/
+
+gulp.task('build:scripts'/*, ['clean:dist']*/, function() {
+	return gulp.src(paths.scripts.input)
+ 		.pipe(plumber(function () {
+            beep();
+        }))
+		.pipe(jshint())
+		.pipe(jshint.reporter('jshint-stylish'))
+		.pipe(jshint.reporter('fail'))
+		.pipe(uglify())
+    	.pipe(concat('script.js')) 	
+    	.pipe(rename({
+        	//	dirname: paths.scripts.output,
+        		suffix: ".min"
+    		}))
+    	.pipe(gulp.dest(paths.scripts.output));	  	    	
+});
 
 
 
@@ -251,14 +276,33 @@ gulp.task('build:pages', ['compile'], function() {
 // Spin up livereload server and listen for file changes
 gulp.task('listen', function () {
     livereload.listen();
-    gulp.watch(paths.input).on('change', function(file) {
-        gulp.start('default');
+    gulp.watch(paths.styles.input).on('change', function(file) {
+        gulp.start('compile');
         gulp.start('refresh');
     });
+        gulp.watch(paths.html.input).on('change', function(file) {
+        gulp.start('pages');
+        gulp.start('refresh');
+    });
+        gulp.watch(paths.markdown.input).on('change', function(file) {
+        gulp.start('pages');
+        gulp.start('refresh');
+    });
+        gulp.watch(paths.scripts.input).on('change', function(file) {
+        gulp.start('compile');
+        gulp.start('refresh');
+    });    
+    
+    	gulp.watch(paths.images.input).on('change', function(file) {
+        gulp.start('images');
+        gulp.start('refresh');
+    });  
+    
+    
 });
 
 // Run livereload after file change
-gulp.task('refresh', ['compile', 'docs'], function () {
+gulp.task('refresh', ['compile', 'pages', 'images'], function () {
     livereload.changed();
 });
 
@@ -269,7 +313,7 @@ gulp.task('refresh', ['compile', 'docs'], function () {
 
 // Compile files
 gulp.task('compile', [
-	'lint:scripts',
+//	'lint:scripts',
 	'clean:dist',
 	'copy:static',
 	'build:scripts',
@@ -286,23 +330,21 @@ gulp.task('pages', [
 ]);
 
 
-// Compile files, generate docs, and run unit tests (default)
-gulp.task('default', [
-	'compile',
-	//'docs',
-	//'tests',
-	'pages'
-]);
-
 // Compile files, generate docs, and run unit tests when something changes
 gulp.task('watch', [
     'listen',
     'default'
 ]);
 
+// Compile files, generate docs, and run unit tests when something changes
+gulp.task('images', [
+    'images:process',
+    'copy:images'
+]);
 
 
-gulp.task('images', function () {
+
+gulp.task('images:process', function () {
 
   // x-small images
   gulp.src(paths.images.input)
@@ -316,18 +358,68 @@ gulp.task('images', function () {
     }, {
       imageMagick: true
     }))
-
-    // Crunches images
+    
+    // Crunches images  
     .pipe(imagemin({
       progressive: true,
       use: [jpegtran()]
     }))
 
+
     // Renames images
- 
     .pipe(rename({
     prefix: 'xsmall_'
     }))
 
     .pipe(gulp.dest(paths.images.output)); // ./dist/main/text/ciao/bonjour-aloha-hola.md
+
+    // large images  
+    gulp.src(paths.images.input)
+    .pipe(gm(function (gmfile) {
+      return gmfile.setFormat('jpg'),
+      		 gmfile.resample(72, 72),
+             gmfile.resize(1400, null),
+             gmfile.crop(1400, 812, 0, 0),
+             gmfile.quality(35);
+             // gulp // Again, I don't think this belongs here
+    }, {
+      imageMagick: true
+    }))
+    
+    // Crunches images
+   
+    .pipe(imagemin({
+      progressive: true,
+      use: [jpegtran()]
+    }))
+
+
+    // Renames images
+
+    .pipe(rename({
+    prefix: 'large_'
+    }))
+
+
+    .pipe(gulp.dest(paths.images.output)); // ./dist/main/text/ciao/bonjour-aloha-hola.md
+    
+    
 });
+
+// Copy image files into output folder after processing them
+gulp.task('copy:images', function() {
+	return gulp.src(paths.images.input)
+		.pipe(plumber())
+		.pipe(rimraf())
+		.pipe(gulp.dest(paths.images.done));
+});
+
+
+
+// Compile files, generate docs, and run unit tests (default)
+gulp.task('default', [
+	'images',
+	'compile',
+	'pages'
+
+]);
