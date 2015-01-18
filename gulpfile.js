@@ -103,8 +103,9 @@ var paths = {
 	},
 	
 	images: {
-		input: 'src/siteart_input/*.png',
-		output: 'site/siteart/'
+		input: 'src/siteart_input/*{.png,.jpg,.tiff,.jpeg}',
+		output: 'site/siteart/',
+		done: 'src/siteart_ouput/'
 	}
 	
 };
