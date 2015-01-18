@@ -118,9 +118,9 @@ var paths = {
  */
 
 // Lint, minify, and concatenate scripts
+/*
 gulp.task('build:scripts', ['clean:dist'], function() {
 	var jsTasks = lazypipe()
-		.pipe(gulp.dest, paths.scripts.output)
 		.pipe(rename, { suffix: '.min' })
 		.pipe(uglify)
 		.pipe(gulp.dest, paths.scripts.output);
