@@ -16,7 +16,7 @@ var rename = require('gulp-rename');
 var watch = require('gulp-watch');
 var livereload = require('gulp-livereload');
 var package = require('./package.json');
-var inject = require('gulp-inject')
+// var inject = require('gulp-inject')
 var filter = require('gulp-filter');
 
 // Scripts and tests
