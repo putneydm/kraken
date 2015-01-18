@@ -51,7 +51,8 @@ var markdown = require('gulp-markdown');
 var imagemin = require('gulp-imagemin');
 var jpegtran = require('gulp-imagemin/node_modules/imagemin/node_modules/imagemin-jpegtran/');
 var gm = require('gulp-gm');
-var rename = require('gulp-rename');
+//var rename = require('gulp-rename');
+var rimraf = require('gulp-rimraf');
 
 
 /**
