@@ -18,6 +18,7 @@ var livereload = require('gulp-livereload');
 var package = require('./package.json');
 // var inject = require('gulp-inject')
 var filter = require('gulp-filter');
+var beep = require('beepbeep')
 
 // Scripts and tests
 var jshint = require('gulp-jshint');
