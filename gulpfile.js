@@ -4,15 +4,15 @@
 
 // General
 var gulp = require('gulp');
-var fs = require('fs');
+// var fs = require('fs');
 var del = require('del');
-var lazypipe = require('lazypipe');
+// var lazypipe = require('lazypipe');
 var plumber = require('gulp-plumber');
 var flatten = require('gulp-flatten');
 var tap = require('gulp-tap');
 var rename = require('gulp-rename');
-var header = require('gulp-header');
-var footer = require('gulp-footer');
+//var header = require('gulp-header');
+//var footer = require('gulp-footer');
 var watch = require('gulp-watch');
 var livereload = require('gulp-livereload');
 var package = require('./package.json');
