@@ -39,8 +39,9 @@ var svgstore = require('gulp-svgstore');
 var svg2png = require('gulp-svg2png');
 var svgSprite = require("gulp-svg-sprites")
 
+
 // Docs
-var markdown = require('gulp-markdown');
+//var markdown = require('gulp-markdown');
 var fileinclude = require('gulp-file-include');
 
 //Markdown
