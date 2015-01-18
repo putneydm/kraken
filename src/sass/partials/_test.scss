@@ -2,4 +2,27 @@
 h2
 	{
 	color:red !important;	
+	font-size:em(24);
+	font-weight:bold;
+	margin:0 0 em(10) 0;
 	}
+	
+ul
+	{
+	margin:em(20);	
+	
+		li
+		{
+		list-style-type:disc;		
+		}
+	
+	}	
+	
+	
+strong
+	{
+	font-weight:bold;
+	color:green;
+	
+	
+	}	

@@ -1,5 +1,7 @@
-//@import "config";
+@import "bourbon/bourbon";
+@import "config";
 //@import "mixins";
+//@import "components/variables";
 @import "components/main";
 @import "components/normalize";
 @import "components/reset";
@@ -14,6 +16,8 @@
 @import "components/overrides";
 //@import "components/print";
 
+// @import "../site/svg/css/sprite";
 
 
-@import "partials/test"
+@import "partials/test";
+
