@@ -18,7 +18,7 @@ var livereload = require('gulp-livereload');
 var package = require('./package.json');
 // var inject = require('gulp-inject')
 var filter = require('gulp-filter');
-var beep = require('beepbeep')
+var beep = require('beepbeep');
 var cache = require('gulp-cached');
 var remember = require('gulp-remember');
 
@@ -40,6 +40,9 @@ var svgmin = require('gulp-svgmin');
 var svgstore = require('gulp-svgstore');
 var svg2png = require('gulp-svg2png');
 var svgSprite = require("gulp-svg-sprites")
+
+
+
 
 
 // Docs
@@ -144,6 +147,7 @@ gulp.task('build:scripts', ['clean:dist'], function() {
 
 // Process, lint, and minify Sass files
 gulp.task('build:styles'/*, ['clean:dist']*/, function() {
+
 	return gulp.src(paths.styles.input)
  		.pipe(plumber(function () {
             beep();
