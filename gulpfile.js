@@ -249,8 +249,8 @@ gulp.task('build:scripts', function() {
             beep();
         }))
 		.pipe(jshint())
-		.pipe(jshint.reporter('jshint-stylish'))
-		.pipe(jshint.reporter('fail'))
+		.pipe(jshint.reporter('jshint-stylish')) // reports linting errors in the console
+	//	.pipe(jshint.reporter('fail'))
 		.pipe(uglify())
 		.pipe(vendorFilter.restore()) // adds back vendor files so they can be concatenated 
 		.pipe (remember('scripts'))
