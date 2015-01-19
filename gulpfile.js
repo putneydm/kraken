@@ -20,6 +20,7 @@ var package = require('./package.json');
 var filter = require('gulp-filter');
 var beep = require('beepbeep')
 var cache = require('gulp-cached');
+var remember = require('gulp-remember');
 
 // Scripts and tests
 var jshint = require('gulp-jshint');
@@ -246,6 +247,7 @@ gulp.task('build:scripts'/*, ['clean:dist']*/, function() {
 		.pipe(jshint.reporter('jshint-stylish'))
 		.pipe(jshint.reporter('fail'))
 		.pipe(uglify())
+		.pipe (remember('scripts'))
     	.pipe(concat('script.js')) 	
     	.pipe(rename({
         	//	dirname: paths.scripts.output,
