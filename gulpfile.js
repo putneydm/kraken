@@ -237,7 +237,7 @@ gulp.task('lint:scripts', function () {
 
 */
 
-gulp.task('build:scripts'/*, ['clean:dist']*/, function() {
+gulp.task('build:scripts', function() {
 
 	//this excludes scripts in the vendor folder from being linted. vendorFilter.restore ads them back to concat.
 	var vendorFilter = filter(['**/*', '!vendor/*']);
