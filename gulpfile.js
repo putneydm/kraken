@@ -19,6 +19,7 @@ var package = require('./package.json');
 // var inject = require('gulp-inject')
 var filter = require('gulp-filter');
 var beep = require('beepbeep')
+var cache = require('gulp-cached');
 
 // Scripts and tests
 var jshint = require('gulp-jshint');
@@ -237,6 +238,7 @@ gulp.task('lint:scripts', function () {
 
 gulp.task('build:scripts'/*, ['clean:dist']*/, function() {
 	return gulp.src(paths.scripts.input)
+		.pipe (cache('build:scripts'))
  		.pipe(plumber(function () {
             beep();
         }))
