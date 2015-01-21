@@ -4,19 +4,14 @@
 
 // General
 var gulp = require('gulp');
-// var fs = require('fs');
 var del = require('del');
-// var lazypipe = require('lazypipe');
 var plumber = require('gulp-plumber');
 var flatten = require('gulp-flatten');
 var tap = require('gulp-tap');
 var rename = require('gulp-rename');
-//var header = require('gulp-header');
-//var footer = require('gulp-footer');
 var watch = require('gulp-watch');
 var livereload = require('gulp-livereload');
 var package = require('./package.json');
-// var inject = require('gulp-inject')
 var filter = require('gulp-filter');
 var beep = require('beepbeep');
 var cache = require('gulp-cached');
@@ -41,12 +36,7 @@ var svgstore = require('gulp-svgstore');
 var svg2png = require('gulp-svg2png');
 var svgSprite = require("gulp-svg-sprites")
 
-
-
-
-
 // Docs
-//var markdown = require('gulp-markdown');
 var fileinclude = require('gulp-file-include');
 
 //Markdown
@@ -56,7 +46,6 @@ var markdown = require('gulp-markdown');
 var imagemin = require('gulp-imagemin');
 var jpegtran = require('gulp-imagemin/node_modules/imagemin/node_modules/imagemin-jpegtran/');
 var gm = require('gulp-gm');
-//var rename = require('gulp-rename');
 var rimraf = require('gulp-rimraf');
 
 
@@ -93,60 +82,28 @@ var paths = {
 		output: 'docs/',
 		templates: 'src/docs/_templates/',
 		assets: 'src/docs/assets/**'
-	},
-	
+	},	
 	html: {
 		input: 'src/html/*.{html,md,markdown}',
+		watch: 'src/html/**/*.html',
 		output: 'site/',
 		//templates: 'src/html/_templates/',
 		assets: 'src/html/assets/**'
-	},
-	
+	},	
 	markdown: {
 		input: 'src/html/modules/markdown/*.{md,markdown}',
 		output: 'src/html/modules/markdown_compiled',
-	},
-	
+	},	
 	images: {
 		input: 'src/siteart_input/*{.png,.jpg,.tiff,.jpeg}',
 		output: 'site/siteart/',
 		done: 'src/siteart_ouput/'
-	}
-	
+	}	
 };
 
 
-
-
-/**
- * Gulp Tasks
- */
-
-// Lint, minify, and concatenate scripts
-/*
-gulp.task('build:scripts', ['clean:dist'], function() {
-	var jsTasks = lazypipe()
-		.pipe(rename, { suffix: '.min' })
-		.pipe(uglify)
-		.pipe(gulp.dest, paths.scripts.output);
-
-	return gulp.src(paths.scripts.input)
-		.pipe(plumber())
-		.pipe(tap(function (file, t) {
-			if ( file.isDirectory() ) {
-				var name = file.relative + '.js';
-				return gulp.src(file.path + '/*.js')
-					.pipe(concat(name))
-					.pipe(jsTasks());
-			}
-		}))
-		.pipe(jsTasks());
-});
-
-*/
-
 // Process, lint, and minify Sass files
-gulp.task('build:styles'/*, ['clean:dist']*/, function() {
+gulp.task('build:styles', function() {
 
 	return gulp.src(paths.styles.input)
  		.pipe(plumber(function () {
@@ -189,9 +146,6 @@ gulp.task('build:svgs', ['clean:dist'], function () {
 });
 
 
-//var svgSprite = require("gulp-svg-sprites");
-// var filter    = require('gulp-filter');
-
 gulp.task('png_sprites', function () {
     return gulp.src(paths.svgs.input)
    		.pipe(svgmin())
@@ -229,18 +183,6 @@ gulp.task('test:scripts', function() {
 });
 
 
-// Lint scripts
-/*
-gulp.task('lint:scripts', function () {
-	return gulp.src(paths.scripts.input)
-		.pipe(plumber())
-		.pipe(jshint())
-		.pipe(jshint.reporter('jshint-stylish'))
-		.pipe(jshint.reporter('fail'))
-});
-
-*/
-
 gulp.task('build:scripts', function() {
 
 	//this excludes scripts in the vendor folder from being linted. vendorFilter.restore ads them back to concat.
@@ -270,6 +212,7 @@ gulp.task('build:scripts', function() {
 
 gulp.task('build:markdown', function () {
     return gulp.src(paths.markdown.input)
+    	.pipe (cache('build:markdown'))
         .pipe(markdown())
         .pipe(gulp.dest(paths.markdown.output));
 });
@@ -278,6 +221,7 @@ gulp.task('build:markdown', function () {
 // Generate pages
 gulp.task('build:pages', ['compile'], function() {
 	return gulp.src(paths.html.input)
+		//.pipe (cache('build:pages'))
 		.pipe(plumber())
 		.pipe(fileinclude({
 			prefix: '@@',
@@ -294,7 +238,7 @@ gulp.task('listen', function () {
         gulp.start('compile');
         gulp.start('refresh');
     });
-        gulp.watch(paths.html.input).on('change', function(file) {
+        gulp.watch(paths.html.watch).on('change', function(file) {
         gulp.start('pages');
         gulp.start('refresh');
     });
@@ -362,6 +306,7 @@ gulp.task('images:process', function () {
 
   // x-small images
   gulp.src(paths.images.input)
+  //  .pipe (cache('images:process'))
     .pipe(gm(function (gmfile) {
       return gmfile.setFormat('jpg'),
       		 gmfile.resample(72, 72),
@@ -389,6 +334,7 @@ gulp.task('images:process', function () {
 
     // large images  
     gulp.src(paths.images.input)
+ //   .pipe (cache('images:process'))
     .pipe(gm(function (gmfile) {
       return gmfile.setFormat('jpg'),
       		 gmfile.resample(72, 72),
@@ -409,11 +355,9 @@ gulp.task('images:process', function () {
 
 
     // Renames images
-
     .pipe(rename({
     prefix: 'large_'
     }))
-
 
     .pipe(gulp.dest(paths.images.output)); // ./dist/main/text/ciao/bonjour-aloha-hola.md
     
