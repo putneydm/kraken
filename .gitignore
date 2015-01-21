@@ -8,3 +8,6 @@ test/coverage
 ._*
 .Spotlight-V100
 .Trashes
+npm-debug.log
+gulp_tasks/
+src/siteart_output/
