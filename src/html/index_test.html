@@ -1,27 +1,35 @@
 <!DOCTYPE html>
 <html>
 	<head>
+	<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1"> 
+
 	<link href="css/styles.min.css" rel="stylesheet">	
 	</head>
   <body>
-  <h1>this is a test with build pges</h1>
+
+  @@include('modules/header.html')	
+ 
   @@include('modules/markdown_compiled/body.html')
+  
+  @@include('modules/markdown_compiled/second.html')
     
-    <p>this is a test <span class="icon rocket"></span></p>
-    
-    
-    <!--
-    		<picture>          
-				<source srcset="/siteart/large_whale.jpg" media="(min-width:550px)">
-				<source srcset="/siteart/xsmall_whale.jpg">
-				<img src="siteart/large_whale.jpg" alt="">
-			</picture>
-    
-    -->
+    <p>this is a test here<span class="icon rocket"></span></p>
     
     
-    <img src="siteart/large_whalep.jpg" alt="">
+    <img src="siteart/xsmall_test.jpg" />
     
+    
+    
+    <picture>  
+		<source srcset="" media="(min-width:550px)">
+		<source srcset="siteart/xsmall_test.jpg" media="(min-width:350px)">
+		<source srcset="">
+		<img src="" class="lazyload" alt="">
+		</picture>
+    
+
+  @@include('modules/header_footer/footer.html')	
+  
   </body>
   
 	<script src="http://www.davidputney.com/scripts/concat/scripts.js"></script>

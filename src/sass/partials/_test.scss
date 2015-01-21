@@ -1,11 +1,35 @@
 
+%blue
+	{
+	color:green;
+	
+	}
+
+
 h2
 	{
-	color:red !important;	
 	font-size:em(24);
 	font-weight:bold;
 	margin:0 0 em(10) 0;
+	@extend %blue;
+	
+		&:first-of-type
+		{
+		color:red;		
+		}
+	
+	
 	}
+	
+	
+h3
+	{
+	font-size:em(18);
+	font-weight:bold;
+	@extend %blue;
+	
+	
+	}	
 	
 ul
 	{
@@ -26,3 +50,23 @@ strong
 	
 	
 	}	
+	
+	
+.header
+	{
+	width:100%;
+	height:80px;
+	position:fixed;
+	top:0px;
+	left:0px;
+	border:1px solid red;
+	}
+	
+	
+.footer
+	{
+	width:100%;
+	height:em(600);
+	background-color:#ededed;	
+	}	
+		
