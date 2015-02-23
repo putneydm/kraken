@@ -34,7 +34,7 @@ var csslint = require('gulp-csslint');
 var svgmin = require('gulp-svgmin');
 var svgstore = require('gulp-svgstore');
 var svg2png = require('gulp-svg2png');
-//var svgSprite = require("gulp-svg-sprites")
+var svgSprite = require("gulp-svg-sprite")
 
 // Docs
 var fileinclude = require('gulp-file-include');
@@ -122,7 +122,9 @@ gulp.task('build:styles', function() {
 // Generate SVG sprites
 gulp.task('build:svgs', function () {
 	return gulp.src(paths.svgs.input)
+	
 		.pipe(plumber())
+		/*
 		.pipe(tap(function (file, t) {
 			if ( file.isDirectory() ) {
 				var name = file.relative + '.svg';
@@ -136,12 +138,21 @@ gulp.task('build:svgs', function () {
 					.pipe(gulp.dest(paths.svgs.output));
 			}
 		}))
-		.pipe(svgmin())
+		*/			
+	//	.pipe(svgSprite())
+	//	.pipe(svgmin())
 		.pipe(svgstore({
-			fileName: 'icons.svg',
-			prefix: 'icon-',
+		//	fileName: 'icons.svg',
+		//	prefix: 'icon-',
 			inlineSvg: true
-		}))
+		})) 
+		.pipe(rename({
+		basename: "sprite",
+        prefix: "icon-",
+        extname: ".svg"
+    		}))
+		
+		
 		.pipe(gulp.dest(paths.svgs.output))
 });
 
