@@ -91,7 +91,7 @@ var paths = {
 		assets: 'src/html/assets/**'
 	},	
 	markdown: {
-		input: 'src/html/modules/markdown/*.{md,markdown}',
+		input: 'src/html/modules/markdown/*/*.{md,markdown}',
 		output: 'src/html/modules/markdown_compiled',
 	},	
 	images: {
