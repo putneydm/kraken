@@ -221,7 +221,7 @@ gulp.task('build:markdown', function () {
 // Generate pages
 gulp.task('build:pages', ['compile'], function() {
 	return gulp.src(paths.html.input)
-		//.pipe (cache('build:pages'))
+	//	.pipe (cache('build:pages'))
 		.pipe(plumber())
 		.pipe(fileinclude({
 			prefix: '@@',
@@ -235,7 +235,7 @@ gulp.task('build:pages', ['compile'], function() {
 gulp.task('listen', function () {
     livereload.listen();
     gulp.watch(paths.styles.input).on('change', function(file) {
-        gulp.start('compile');
+        gulp.start('build:styles');
         gulp.start('refresh');
     });
         gulp.watch(paths.html.watch).on('change', function(file) {
@@ -247,7 +247,7 @@ gulp.task('listen', function () {
         gulp.start('refresh');
     });
         gulp.watch(paths.scripts.input).on('change', function(file) {
-        gulp.start('compile');
+        gulp.start('build:scripts');
         gulp.start('refresh');
     });    
     
