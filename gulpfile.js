@@ -120,7 +120,7 @@ gulp.task('build:styles', function() {
 });
 
 // Generate SVG sprites
-gulp.task('build:svgs', ['clean:dist'], function () {
+gulp.task('build:svgs', function () {
 	return gulp.src(paths.svgs.input)
 		.pipe(plumber())
 		.pipe(tap(function (file, t) {
@@ -158,7 +158,7 @@ gulp.task('png_sprites', function () {
 
 
 // Copy static files into output folder
-gulp.task('copy:static', ['clean:dist'], function() {
+gulp.task('copy:static', function() {
 	return gulp.src(paths.static)
 		.pipe(plumber())
 		.pipe(gulp.dest(paths.output));
@@ -274,6 +274,7 @@ gulp.task('compile', [
 //	'lint:scripts',
 	'clean:dist',
 	'copy:static',
+//	'clean:dist',
 	'build:scripts',
 	'build:svgs',
 	'build:styles'
