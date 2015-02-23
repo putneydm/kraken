@@ -1,10 +1,12 @@
 //concat file
 
-console.log('two');
+console.log('cat');
 
 $(document) .ready (function()
 	{
 	
 	//this is a test
 	
-	});
+	console.log('cat'); 
+	
+	}); 

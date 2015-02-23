@@ -1,8 +1,10 @@
 // this is functions
 
-console.log('one');
+console.log('fucn');
 
 
 //this is a test here
 
-console.log('changed again');
+console.log('func');
+
+console.log('func func yy');
