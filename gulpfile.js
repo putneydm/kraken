@@ -34,7 +34,7 @@ var csslint = require('gulp-csslint');
 var svgmin = require('gulp-svgmin');
 var svgstore = require('gulp-svgstore');
 var svg2png = require('gulp-svg2png');
-var svgSprite = require("gulp-svg-sprites")
+//var svgSprite = require("gulp-svg-sprites")
 
 // Docs
 var fileinclude = require('gulp-file-include');
