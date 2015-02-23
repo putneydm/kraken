@@ -199,7 +199,7 @@ gulp.task('build:scripts', function() {
 		.pipe(jshint.reporter('fail'))
 		.pipe(uglify())
 		.pipe(vendorFilter.restore()) // adds back vendor files so they can be concatenated 
-		.pipe (remember('scripts'))
+		.pipe (remember('build:scripts'))
     	.pipe(concat('script.js')) 	
     	.pipe(rename({
         	//	dirname: paths.scripts.output,
