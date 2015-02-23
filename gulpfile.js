@@ -272,9 +272,8 @@ gulp.task('refresh', ['compile', 'pages', 'images'], function () {
 // Compile files
 gulp.task('compile', [
 //	'lint:scripts',
-	'clean:dist',
-	'copy:static',
 //	'clean:dist',
+//	'copy:static',
 	'build:scripts',
 	'build:svgs',
 	'build:styles'
