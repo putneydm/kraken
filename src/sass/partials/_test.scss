@@ -82,7 +82,7 @@ strong
 	
 .sixteen-nine {
   @include aspect-ratio(16,9);
-  border:1px solid red;
+  border:1px solid yellow;
   width:em(400);  
 }	
 	

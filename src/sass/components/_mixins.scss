@@ -172,13 +172,8 @@
 		background-origin: padding-box;
 		background-position: 0 95%;
 		background-repeat: repeat-x;
-    }
-	
-	
-	
-		
+    }		
 	}
-	
 	
 	
 @mixin linx ($link, $visit, $hover, $active) {
@@ -196,8 +191,7 @@
   }
 }
 	
-	
-	
+		
 	
 /// Gives a card depth effect.
 /// @param {Number} $depth - depth level (between 1 and 5)
