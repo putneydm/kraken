@@ -70,3 +70,19 @@ strong
 	background-color:#ededed;	
 	}	
 		
+		
+		
+	a
+	{
+	@include hoverer (blue, red, green, orange);
+	
+	
+	}	
+	
+	
+.sixteen-nine {
+  @include aspect-ratio(16,9);
+  border:1px solid red;
+  width:em(400);  
+}	
+	
